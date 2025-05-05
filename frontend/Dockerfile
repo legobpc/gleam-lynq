@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Встановлюємо залежності
-RUN npm install
+RUN yarn install
 
 # Копіюємо весь код
 COPY . .
@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 5173
 
 # Стандартна команда для запуску Vite dev server
-CMD ["npm", "run", "dev", "--", "--host"]
+CMD ["yarn", "dev", "--host"]
