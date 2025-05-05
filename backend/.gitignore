@@ -1,0 +1,22 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Env files
+.env
+!.env.example
+
+# Logs
+*.log
+
+# VSCode / IDE
+.vscode/
+.idea/
+
+# Docker artifacts
+*.pid
+*.sock
+
+# Test cache (pytest)
+.pytest_cache/

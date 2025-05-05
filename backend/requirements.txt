@@ -1,0 +1,9 @@
+fastapi==0.110.1
+uvicorn[standard]==0.29.0
+selenium==4.20.0
+selenium-wire==5.1.0
+anticaptchaofficial==1.0.64
+pyvirtualdisplay==3.0
+blinker==1.7.0
+fake-useragent==1.5.1
+python-dotenv
