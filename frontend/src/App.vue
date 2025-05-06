@@ -8,7 +8,6 @@ const tabs = [
   { id: 'domain', label: 'Domain Checker' },
   { id: 'sitemap', label: 'Sitemap Checker' },
   { id: 'url', label: 'URL Checker' },
-  { id: 'other2', label: 'Google Position Tracker' },
 ]
 
 const activeTab = ref('domain')
@@ -46,7 +45,7 @@ const getTabClasses = (tab) => {
     <aside
       class="fixed top-0 left-0 h-full w-[220px] border-r-2 border-gray-700 flex flex-col p-4 bg-[#212121] z-10"
     >
-      <h2 class="text-xl font-bold text-white mb-6">Savio</h2>
+      <h2 class="text-xl font-bold text-white mb-6">Checker</h2>
       <nav class="flex flex-col space-y-2">
         <button
           v-for="tab in tabs"
@@ -71,10 +70,6 @@ const getTabClasses = (tab) => {
 
       <div v-else-if="activeTab === 'url'">
         <URLChecker />
-      </div>
-
-      <div v-else-if="activeTab === 'other2'">
-        <p>Тут ще один майбутній блок 🚀</p>
       </div>
     </main>
   </div>

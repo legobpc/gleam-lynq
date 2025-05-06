@@ -1,0 +1,29 @@
+FROM node:20 AS builder
+
+WORKDIR /app
+
+# Копіюємо тільки package*.json
+COPY package*.json ./
+
+# Встановлюємо залежності
+RUN yarn install
+
+# Копіюємо код
+COPY . .
+
+# Білдимо
+RUN yarn build
+
+
+# --- Production Stage ---
+FROM nginx:alpine
+
+# Копіюємо збілджений фронт у Nginx
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Копіюємо Nginx конфіг (опціонально)
+# COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
