@@ -95,8 +95,8 @@ async def check_url(data: URLCheckInput):
                     should_parse_html = True
 
             if should_parse_html:
-                # ✅ Use 'lxml' parser here
-                soup = BeautifulSoup(response.text, 'lxml')
+                # ✅ Use 'html.parser' parser here
+                soup = BeautifulSoup(response.text, 'html.parser')
 
                 # ✅ Title
                 if soup.title and soup.title.string:
