@@ -29,7 +29,7 @@
     </div>
 
     <!-- Result -->
-    <div v-if="result" class="mt-8 p-6 bg-[#1e1e1e] rounded-lg border-2 border-blue-400 shadow">
+    <div v-if="result" class="mt-10 w-full p-6 bg-[#1e1e1e] rounded-lg border-4 border-blue-400 shadow-lg shadow-blue-500/30 transition-all duration-300">
       <h3 class="text-xl font-semibold mb-4 text-blue-300 border-b-2 border-blue-300 pb-2">
         Sitemap Overview
       </h3>
@@ -91,7 +91,7 @@
       </div>
 
       <!-- Loaded URLs from Sub-Sitemaps -->
-      <div v-for="(urls, sitemapUrl) in urlsPerSitemap" :key="sitemapUrl" class="mt-6">
+      <div v-if="urlsPerSitemap.length" v-for="(urls, sitemapUrl) in urlsPerSitemap" :key="sitemapUrl" class="mt-6">
         <h4 class="font-semibold text-blue-300 mb-2 break-all">
           URLs from: {{ sitemapUrl }} ({{ urls.length }})
         </h4>

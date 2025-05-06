@@ -26,7 +26,7 @@
       {{ error }}
     </div>
 
-    <div v-if="result" class="mt-8 p-6 bg-[#1e1e1e] rounded-lg border-2 border-green-400 shadow">
+    <div v-if="result" class="mt-10 w-full max-w-2xl p-6 bg-[#161616] rounded-lg border-4 border-green-400 shadow-lg shadow-green-500/30 transition-all duration-300">
       <h3 class="text-xl font-semibold mb-4 text-green-300 border-b-2 border-green-300 pb-2">
         Result
       </h3>

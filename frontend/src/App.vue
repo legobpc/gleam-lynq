@@ -19,7 +19,7 @@ const getTabClasses = (tab) => {
 
   if (tab.id === 'domain') {
     return isActive
-      ? `${base} bg-[#2a2a2a] text-emerald-400 border-emerald-400`
+      ? `${base} bg-[#2a2a2a] text-green-400 border-green-400`
       : `${base} hover:bg-[#2a2a2a] text-gray-300 border-transparent`
   }
   if (tab.id === 'sitemap') {

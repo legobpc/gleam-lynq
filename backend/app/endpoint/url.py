@@ -44,6 +44,7 @@ class URLCheckResponse(BaseModel):
     lang: Optional[str]
     favicon_url: Optional[str]
     message: str
+    seo_checks: Optional[Dict[str, Dict[str, str]]] = None
 
 # ✅ Input model
 class URLCheckInput(BaseModel):
@@ -173,6 +174,79 @@ async def check_url(data: URLCheckInput):
                 if favicon_tag and favicon_tag.has_attr('href'):
                     favicon_url = favicon_tag['href'].strip()
 
+            seo_checks = {}
+
+            # Title check
+            if title:
+                length = len(title)
+                seo_checks['title'] = {
+                    'passed': str(40 <= length <= 65),
+                    'message': f'Length: {length} characters'
+                }
+            else:
+                seo_checks['title'] = {
+                    'passed': 'False',
+                    'message': 'Missing title tag'
+                }
+
+            # Description check
+            if description:
+                length = len(description)
+                seo_checks['description'] = {
+                    'passed': str(50 <= length <= 160),
+                    'message': f'Length: {length} characters'
+                }
+            else:
+                seo_checks['description'] = {
+                    'passed': 'False',
+                    'message': 'Missing meta description'
+                }
+
+            # H1 check
+            seo_checks['h1'] = {
+                'passed': str(bool(h1)),
+                'message': f'H1 found: {h1}' if h1 else 'No H1 tag found'
+            }
+
+            # Multiple H1 check
+            seo_checks['all_h1'] = {
+                'passed': str(len(all_h1) == 1),
+                'message': f'{len(all_h1)} H1 tags found'
+            }
+
+            # Canonical matches
+            if canonical:
+                seo_checks['canonical'] = {
+                    'passed': str(canonical == final_url),
+                    'message': 'Canonical matches final URL' if canonical == final_url else 'Canonical does not match final URL'
+                }
+            else:
+                seo_checks['canonical'] = {
+                    'passed': 'False',
+                    'message': 'No canonical tag found'
+                }
+
+            # Robots meta noindex check
+            if robots_meta:
+                noindex = 'noindex' in robots_meta.lower()
+                seo_checks['robots_meta_noindex'] = {
+                    'passed': str(not noindex),
+                    'message': 'No noindex found' if not noindex else 'Contains noindex'
+                }
+            else:
+                seo_checks['robots_meta_noindex'] = {
+                    'passed': 'True',
+                    'message': 'No robots meta tag found'
+                }
+
+            # Open Graph basic check
+            required_og = ['og:title', 'og:description', 'og:image']
+            missing_og = [tag for tag in required_og if tag not in open_graph]
+            seo_checks['open_graph'] = {
+                'passed': str(len(missing_og) == 0),
+                'message': 'All required OG tags found' if not missing_og else f'Missing: {", ".join(missing_og)}'
+            }
+
             message = f"URL checked successfully. Status: {status_code}"
 
             return URLCheckResponse(
@@ -198,7 +272,8 @@ async def check_url(data: URLCheckInput):
                 alternate_hreflang=alternate_hreflang,
                 lang=lang,
                 favicon_url=favicon_url,
-                message=message
+                message=message,
+                seo_checks=seo_checks
             )
 
         except httpx.RequestError as e:
@@ -225,5 +300,6 @@ async def check_url(data: URLCheckInput):
                 alternate_hreflang=[],
                 lang=None,
                 favicon_url=None,
-                message=f"Request failed: {str(e)}"
+                message=f"Request failed: {str(e)}",
+                seo_checks=None
             )
