@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full max-w-2xl mx-auto">
+  <div class="w-full">
     <form @submit.prevent="checkDomain" class="space-y-6">
       <div>
         <label class="block text-sm font-medium text-green-400 mb-2">
@@ -16,7 +16,7 @@
       <button
         type="submit"
         :disabled="loading"
-        class="w-full py-3 bg-green-400 text-white font-semibold rounded-md hover:bg-green-500 transition disabled:opacity-50"
+        class="w-auto px-4 py-3 bg-green-400 text-white font-semibold rounded-md hover:bg-green-500 transition disabled:opacity-50"
       >
         {{ loading ? 'Checking...' : 'Check Domain' }}
       </button>

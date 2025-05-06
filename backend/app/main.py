@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.selenium_runner import run_selenium
 from app.endpoint import domain
+from app.endpoint import sitemap
+from app.endpoint import url
 
 app = FastAPI()
 
@@ -15,6 +17,8 @@ app.add_middleware(
 )
 
 app.include_router(domain.router, prefix="/domain")
+app.include_router(sitemap.router, prefix="/sitemap")
+app.include_router(url.router, prefix="/url")
 
 @app.get("/")
 def root():
